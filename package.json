@@ -1,0 +1,9 @@
+{
+	"name": "jsog",
+	"version": "1.0.0",
+
+	"devDependencies": {
+		"coffee-script": "1.6.x",
+		"mocha": "1.9.x"
+	}
+}
