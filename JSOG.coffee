@@ -1,7 +1,8 @@
 
 # TODO: figure out how to export this properly
 
-exports = window.JSOG = JSOG = {}
+
+JSOG = {}
 
 JSOG.decode = (encoded) ->
 	# Holds every $id found so far - this is why id values must be strings
@@ -29,7 +30,7 @@ JSOG.decode = (encoded) ->
 
 	if Array.isArray(encoded)
 		return decodeArray(encoded)
-	else if typeof encoded == object
+	else if typeof encoded == 'object'
 		return decodeObject(encoded)
 	else
 		return encoded
@@ -55,11 +56,18 @@ encodeInPlace = (original) ->
 
 	if Array.isArray(original)
 		return encodeArray(original)
-	else if typeof original == object
+	else if typeof original == 'object'
 		return encodeObject(original)
 	else
-		return encoded
+		return original
 
 JSOG.encode = (original) ->
 	cloned = JSON.parse(JSON.stringify(original))
 	return encodeInPlace(cloned)
+
+
+if module && module.exports
+	module.exports = JSOG
+
+if window?
+	window.JSOG = JSOG

@@ -2,7 +2,7 @@
 (function() {
   var JSOG, encoded, inside, outside;
 
-  JSOG = require('JSOG');
+  JSOG = require('./JSOG');
 
   inside = {
     name: 'thing'
@@ -15,6 +15,6 @@
 
   encoded = JSOG.encode(outside);
 
-  console.log(JSON.stringify(encoded));
+  console.log(JSON.stringify(encoded, void 0, 4));
 
 }).call(this);

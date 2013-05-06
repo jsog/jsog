@@ -1,5 +1,5 @@
 
-JSOG = require('JSOG')
+JSOG = require('./JSOG')
 
 inside = { name: 'thing' }
 
@@ -9,4 +9,4 @@ outside =
 
 encoded = JSOG.encode(outside)
 
-console.log JSON.stringify(encoded)
+console.log JSON.stringify(encoded, undefined, 4)
