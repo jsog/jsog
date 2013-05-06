@@ -6,8 +6,7 @@ and deserialized to and from JSON.
 
 ## The problem with JSON
 
-JSON is widely used as a data interchange format, however, it
-is limited:
+JSON is widely used as a data interchange format, however, it is limited:
 
 * Only directed acyclic graphs can be represented.
 * Graphs with repeating information are duplicated on the wire and in memory.
@@ -51,9 +50,10 @@ GET to /departments/Engineering.
 JSOG is a standard way to represent object graphs.
 
 * JSOG is 100% JSON. No special parser is necessary.
-* JSOG is human readable; acyclic graphs are structured just like regular JSON.
-* JSOG makes no assumptions about pre-existing fields. You do not need to create ids for your objects.
-* JSOG is trivial to implement in any language or platform.
+* JSOG is human readable; graphs without cycles look like regular JSON.
+* JSOG does not require (or interact with) pre-existing id fields.
+* JSOG is fully self-describing; ids and refs are unambiguous.
+* JSOG is easy to implement in any language or platform.
 
 This is the JSOG representation of the previous department:
 
@@ -90,9 +90,11 @@ This is the JSOG representation of the previous department:
 		]
 	}
 
+Note that $id values must be strings.
+
 ### Serializing to JSOG
 
-Each time a *new* object is encountered, give it a unique $id. Each time a *repeated* object is encountered,
+Each time a *new* object is encountered, give it a unique string $id. Each time a *repeated* object is encountered,
 serialize as a $ref to the existing $id.
 
 ### Deserializing from JSOG
@@ -101,8 +103,14 @@ Track the $id of every object deserialized. When a $ref is encountered, replace 
 
 ## Implementation
 
-Javascript can implement this as a pre- and post-processing step. For example:
+The Javascript implementation of JSOG converts between a cyclic object graph and the JSOG structure like this:
 
 	jsogEncoded = JSOG.encode(cyclicGraph);
 	cyclicGraph = JSOG.decode(jsogEncoded);
 
+## Authors
+
+The authors are:
+
+* Jeff Schnitzer (jeff@infohazard.org)
+* Jon Stevens (latchkey@gmail.com)
