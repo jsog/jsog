@@ -1,6 +1,6 @@
-# JSOG - JavaScript Object Graphs
+# JSOG - JavaScript Object Graph
 
-JSOG (JavaScript Object Graphs) is a simple convention which allows arbitrary object graphs
+JSOG (JavaScript Object Graph) is a simple convention which allows arbitrary object graphs
 to be represented in JSON. It allows a large, complicated, cyclic object graph to be seriazlied
 and deserialized to and from JSON.
 
