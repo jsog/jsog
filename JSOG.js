@@ -9,7 +9,6 @@
   stripIds = function(obj) {
     var key, val, _i, _len, _results, _results1;
 
-    console.log("stripping " + (JSON.stringify(obj)));
     if (Array.isArray(obj)) {
       _results = [];
       for (_i = 0, _len = obj.length; _i < _len; _i++) {

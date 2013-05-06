@@ -9,7 +9,7 @@ nextId = 1
 
 # Strip out any $id fields
 stripIds = (obj) ->
-	console.log "stripping #{JSON.stringify(obj)}"
+	#console.log "stripping #{JSON.stringify(obj)}"
 
 	if Array.isArray(obj)
 		for val in obj
