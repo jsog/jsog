@@ -41,8 +41,8 @@ For example, picture this data structure which represents a department in a comp
 	}
 
 There are obvious cycles in this graph; employees manage other employees and projects have employees which
-have projects. Your database and represents these relationships just fine and your ORM can pull the object
-graph (with references) into memory, but you cannot directly serialize it to a JSON structure without stack
+have projects. Your database can represent these relationships just fine and your ORM can pull the object
+graph (with references) into memory, but you cannot directly serialize to a JSON structure without stack
 overflow errors. This is a problem when you want to return all of the employees, managers, and projects from a REST
 GET to /departments/Engineering.
 
