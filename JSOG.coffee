@@ -8,51 +8,55 @@ JSOG.decode = (encoded) ->
 	# Holds every $id found so far - this is why id values must be strings
 	found = {}
 
-	decodeObject = (encoded) ->
-		if encoded['$ref']?
-			return found[encoded['$ref']]
+	doDecode = (encoded) ->
+		console.log "decoding #{JSON.stringify(encoded)}"
 
-		result = {}
-		found[encoded['$id']] = result
+		decodeObject = (encoded) ->
+			if encoded['$ref']?
+				return found[encoded['$ref']]
 
-		for key, value of encoded
-			if key != '$id'
-				result[key] = decode(value)
+			result = {}
+			found[encoded['$id']] = result
 
-		return result
+			for key, value of encoded
+				if key != '$id'
+					result[key] = doDecode(value)
 
-	decodeArray = (encoded) ->
-		result = []
-		for value in encoded
-			result.push(decode(value))
+			return result
 
-		return result
+		decodeArray = (encoded) ->
+			result = []
+			for value in encoded
+				result.push(decode(value))
 
-	if Array.isArray(encoded)
-		return decodeArray(encoded)
-	else if typeof encoded == 'object'
-		return decodeObject(encoded)
-	else
-		return encoded
+			return result
+
+		if Array.isArray(encoded)
+			return decodeArray(encoded)
+		else if typeof encoded == 'object'
+			return decodeObject(encoded)
+		else
+			return encoded
+
+	doDecode(encoded)
 
 nextId = 1
-encodeInPlace = (original) ->
+JSOG.encode = (original) ->
+	#console.log "encoding #{JSON.stringify(original)}"
+
 	encodeObject = (original) ->
 		if original['$id']?
 			return { '$ref': original['$id'] }
 
+		result = {}
 		original['$id'] = "#{nextId++}"
 		for key, value of original
-			if key != '$id'
-				original[key] = encodeInPlace(value)
+			result[key] = JSOG.encode(value)
 
-		return original
+		return result
 
 	encodeArray = (original) ->
-		for i in [0...original.length]
-			original[i] = encodeInPlace(original[i])
-
-		return original
+		return (encode val for val in original)
 
 	if Array.isArray(original)
 		return encodeArray(original)
@@ -61,10 +65,10 @@ encodeInPlace = (original) ->
 	else
 		return original
 
-JSOG.encode = (original) ->
-	cloned = JSON.parse(JSON.stringify(original))
-	return encodeInPlace(cloned)
 
+#
+# Export to anywhere appropriate
+#
 
 if module && module.exports
 	module.exports = JSOG
