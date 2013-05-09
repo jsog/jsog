@@ -15,8 +15,8 @@ console.log JSON.stringify(encoded, undefined, 4)
 console.log "Outside after encoding is:"
 console.log JSON.stringify(outside, undefined, 4)
 
-assert !(outside['$id']?)
-assert !(inside['$id']?)
+assert !(outside['@id']?)
+assert !(inside['@id']?)
 
 decoded = JSOG.decode(encoded)
 
@@ -25,4 +25,4 @@ console.log JSON.stringify(decoded, undefined, 4)
 
 assert decoded.inside1 == decoded.inside2
 assert decoded.inside1.name == 'thing'
-assert !(decoded['$id']?)
+assert !(decoded['@id']?)

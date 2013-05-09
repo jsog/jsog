@@ -25,9 +25,9 @@
 
   console.log(JSON.stringify(outside, void 0, 4));
 
-  assert(!(outside['$id'] != null));
+  assert(!(outside['@id'] != null));
 
-  assert(!(inside['$id'] != null));
+  assert(!(inside['@id'] != null));
 
   decoded = JSOG.decode(encoded);
 
@@ -39,6 +39,6 @@
 
   assert(decoded.inside1.name === 'thing');
 
-  assert(!(decoded['$id'] != null));
+  assert(!(decoded['@id'] != null));
 
 }).call(this);

@@ -17,7 +17,7 @@
       }
       return _results;
     } else if (typeof obj === 'object') {
-      delete obj['$id'];
+      delete obj['@id'];
       _results1 = [];
       for (key in obj) {
         val = obj[key];
@@ -36,13 +36,13 @@
       encodeObject = function(original) {
         var key, result, value;
 
-        if (original['$id'] != null) {
+        if (original['@id'] != null) {
           return {
-            '$ref': original['$id']
+            '@ref': original['@id']
           };
         }
         result = {};
-        original['$id'] = "" + (nextId++);
+        original['@id'] = "" + (nextId++);
         for (key in original) {
           value = original[key];
           result[key] = doEncode(value);
@@ -87,14 +87,14 @@
       decodeObject = function(encoded) {
         var key, result, value;
 
-        if (encoded['$ref'] != null) {
-          return found[encoded['$ref']];
+        if (encoded['@ref'] != null) {
+          return found[encoded['@ref']];
         }
         result = {};
-        found[encoded['$id']] = result;
+        found[encoded['@id']] = result;
         for (key in encoded) {
           value = encoded[key];
-          if (key !== '$id') {
+          if (key !== '@id') {
             result[key] = doDecode(value);
           }
         }

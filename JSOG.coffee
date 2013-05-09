@@ -7,7 +7,7 @@ JSOG = {}
 
 nextId = 1
 
-# Strip out any $id fields
+# Strip out any @id fields
 stripIds = (obj) ->
 	#console.log "stripping #{JSON.stringify(obj)}"
 
@@ -15,27 +15,27 @@ stripIds = (obj) ->
 		for val in obj
 			stripIds(val)
 	else if typeof obj == 'object'
-		delete obj['$id']
+		delete obj['@id']
 		for key, val of obj
 			stripIds(val)
 
 #
 # Take a JSON structure with cycles and turn it into a JSOG-encoded structure. Adds
-# $id to every object and replaces duplicate references with $refs.
+# @id to every object and replaces duplicate references with @refs.
 #
-# Note that this modifies the original objects adding $id fields, then strips
-# out those $id fields leaving the original objects as they started.
+# Note that this modifies the original objects adding @id fields, then strips
+# out those @id fields leaving the original objects as they started.
 #
 JSOG.encode = (original) ->
 	#console.log "encoding #{JSON.stringify(original)}"
 
 	doEncode = (original) ->
 		encodeObject = (original) ->
-			if original['$id']?
-				return { '$ref': original['$id'] }
+			if original['@id']?
+				return { '@ref': original['@id'] }
 
 			result = {}
-			original['$id'] = "#{nextId++}"
+			original['@id'] = "#{nextId++}"
 			for key, value of original
 				result[key] = doEncode(value)
 
@@ -57,24 +57,24 @@ JSOG.encode = (original) ->
 
 #
 # Take a JSOG-encoded JSON structure and re-link all the references. The return value will
-# not have any $id or $ref fields
+# not have any @id or @ref fields
 #
 JSOG.decode = (encoded) ->
-	# Holds every $id found so far - this is why id values must be strings
+	# Holds every @id found so far - this is why id values must be strings
 	found = {}
 
 	doDecode = (encoded) ->
 		console.log "decoding #{JSON.stringify(encoded)}"
 
 		decodeObject = (encoded) ->
-			if encoded['$ref']?
-				return found[encoded['$ref']]
+			if encoded['@ref']?
+				return found[encoded['@ref']]
 
 			result = {}
-			found[encoded['$id']] = result
+			found[encoded['@id']] = result
 
 			for key, value of encoded
-				if key != '$id'
+				if key != '@id'
 					result[key] = doDecode(value)
 
 			return result
