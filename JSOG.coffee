@@ -31,8 +31,9 @@ JSOG.encode = (original) ->
 
 	doEncode = (original) ->
 		encodeObject = (original) ->
-			if original['@id']?
-				return { '@ref': original['@id'] }
+			id = original['@id']
+			if id?
+				return { '@ref': id }
 
 			result = {}
 			original['@id'] = "#{nextId++}"
@@ -64,14 +65,18 @@ JSOG.decode = (encoded) ->
 	found = {}
 
 	doDecode = (encoded) ->
-		console.log "decoding #{JSON.stringify(encoded)}"
+		#console.log "decoding #{JSON.stringify(encoded)}"
 
 		decodeObject = (encoded) ->
-			if encoded['@ref']?
-				return found[encoded['@ref']]
+			ref = encoded['@ref']
+			if ref?
+				return found[ref]
 
 			result = {}
-			found[encoded['@id']] = result
+
+			id = encoded['@id']
+			if id
+				found[id] = result
 
 			for key, value of encoded
 				if key != '@id'

@@ -34,11 +34,12 @@
       var encodeArray, encodeObject;
 
       encodeObject = function(original) {
-        var key, result, value;
+        var id, key, result, value;
 
-        if (original['@id'] != null) {
+        id = original['@id'];
+        if (id != null) {
           return {
-            '@ref': original['@id']
+            '@ref': id
           };
         }
         result = {};
@@ -83,15 +84,18 @@
     doDecode = function(encoded) {
       var decodeArray, decodeObject;
 
-      console.log("decoding " + (JSON.stringify(encoded)));
       decodeObject = function(encoded) {
-        var key, result, value;
+        var id, key, ref, result, value;
 
-        if (encoded['@ref'] != null) {
-          return found[encoded['@ref']];
+        ref = encoded['@ref'];
+        if (ref != null) {
+          return found[ref];
         }
         result = {};
-        found[encoded['@id']] = result;
+        id = encoded['@id'];
+        if (id) {
+          found[id] = result;
+        }
         for (key in encoded) {
           value = encoded[key];
           if (key !== '@id') {
