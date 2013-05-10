@@ -121,6 +121,14 @@
     return doDecode(encoded);
   };
 
+  JSOG.stringify = function(obj) {
+    return JSON.stringify(JSOG.encode(obj));
+  };
+
+  JSOG.parse = function(str) {
+    return JSOG.decode(JSON.parse(str));
+  };
+
   if (module && module.exports) {
     module.exports = JSOG;
   }

@@ -96,6 +96,19 @@ JSOG.decode = (encoded) ->
 	return doDecode(encoded)
 
 #
+# Like JSON.stringify, but produces JSOG
+#
+JSOG.stringify = (obj) ->
+	return JSON.stringify(JSOG.encode(obj))
+
+#
+# Like JSON.parse, but understands JSOG
+#
+JSOG.parse = (str) ->
+	return JSOG.decode(JSON.parse(str))
+
+
+#
 # Export to anywhere appropriate
 #
 

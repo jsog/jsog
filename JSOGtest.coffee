@@ -26,3 +26,8 @@ console.log JSON.stringify(decoded, undefined, 4)
 assert decoded.inside1 == decoded.inside2
 assert decoded.inside1.name == 'thing'
 assert !(decoded['@id']?)
+
+roundtrip = JSOG.parse(JSOG.stringify(outside))
+
+console.log "Roundtrip is:"
+console.log JSON.stringify(roundtrip, undefined, 4)
