@@ -75,7 +75,7 @@ Track the @id of every object deserialized. When a @ref is encountered, replace 
 
 ## Implementation
 
-[This github project](https://github.com/stickfigure/jsog) (the one which contains this README) contains a JavaScript
+[The github project which contains this README](https://github.com/stickfigure/jsog) includes a JavaScript
 implementation of JSOG. It can be used to convert between a cyclic object graph and JSOG strings:
 
 	string = JSOG.stringify(cyclicGraph);
@@ -88,7 +88,7 @@ Or it can be used to convert between object graphs directly:
 
 ### Other Languages
 
-* Java - [a Jackson serializer plugin](https://github.com/stickfigure/jackson-jsog)
+* Java: [a Jackson serializer plugin](https://github.com/stickfigure/jackson-jsog)
 
 ## Authors
 
