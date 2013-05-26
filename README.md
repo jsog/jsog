@@ -94,7 +94,7 @@ Or it can be used to convert between object graphs directly:
 
 ### Other Languages
 
-* Java: [a Jackson serializer plugin](https://github.com/stickfigure/jackson-jsog)
+* Java: [a Jackson plugin](https://github.com/stickfigure/jackson-jsog)
 * Python: [a Python implementation](https://github.com/stickfigure/jsog-python)
 * Ruby: [a Ruby implementation](https://github.com/stickfigure/jsog-ruby)
 
