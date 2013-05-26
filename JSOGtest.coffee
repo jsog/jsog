@@ -45,10 +45,10 @@ circular.me = circular
 
 encoded = JSOG.encode(circular)
 console.log "Encoded: " + JSON.stringify(encoded, undefined, 4)
-assert encoded['@id'] == 1
-assert encoded.me['@ref'] == 1
+assert encoded['@id']?
+assert encoded.me['@ref'] == encoded['@id']
 
 decoded = JSOG.decode(encoded)
-assert decoded.me == decoded
+assert decoded.me is decoded
 
 assert !(circular['@id']?)

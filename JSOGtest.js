@@ -59,9 +59,9 @@
 
   console.log("Encoded: " + JSON.stringify(encoded, void 0, 4));
 
-  assert(encoded['@id'] === 1);
+  assert(encoded['@id'] != null);
 
-  assert(encoded.me['@ref'] === 1);
+  assert(encoded.me['@ref'] === encoded['@id']);
 
   decoded = JSOG.decode(encoded);
 

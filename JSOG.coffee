@@ -7,38 +7,35 @@ JSOG = {}
 
 nextId = 1
 
-# Strip out any @id fields
-stripIds = (obj) ->
-	#console.log "stripping #{JSON.stringify(obj)}"
-
-	if Array.isArray(obj)
-		for val in obj
-			stripIds(val)
-	else if typeof obj == 'object'
-		delete obj['@id']
-		for key, val of obj
-			stripIds(val)
-
 #
 # Take a JSON structure with cycles and turn it into a JSOG-encoded structure. Adds
 # @id to every object and replaces duplicate references with @refs.
 #
-# Note that this modifies the original objects adding @id fields, then strips
-# out those @id fields leaving the original objects as they started.
+# Note that this modifies the original objects adding __object_id fields and leaves
+# them there. There does not appear to be another way to define object identity in JS.
 #
 JSOG.encode = (original) ->
 	#console.log "encoding #{JSON.stringify(original)}"
 
+	sofar = {}
+
+	# Get (and if necessary, set) an object id. This ends up being left behind in the original object.
+	idOf = (obj) ->
+		if !obj.__jsogObjectId
+			obj.__jsogObjectId = "#{nextId++}"
+
+		return obj.__jsogObjectId
+
 	doEncode = (original) ->
 		encodeObject = (original) ->
-			id = original['@id']
-			if id?
+			id = idOf(original)
+			if sofar[id]
 				return { '@ref': id }
 
-			result = {}
-			original['@id'] = "#{nextId++}"
+			result = sofar[id] = { '@id': id }
 			for key, value of original
-				result[key] = doEncode(value)
+				if key != '__jsogObjectId'
+					result[key] = doEncode(value)
 
 			return result
 
@@ -52,16 +49,14 @@ JSOG.encode = (original) ->
 		else
 			return original
 
-	result = doEncode(original)
-	stripIds(original)
-	return result
+	return doEncode(original)
 
 #
 # Take a JSOG-encoded JSON structure and re-link all the references. The return value will
 # not have any @id or @ref fields
 #
 JSOG.decode = (encoded) ->
-	# Holds every @id found so far - this is why id values must be strings
+	# Holds every @id found so far.
 	found = {}
 
 	doDecode = (encoded) ->
@@ -69,12 +64,14 @@ JSOG.decode = (encoded) ->
 
 		decodeObject = (encoded) ->
 			ref = encoded['@ref']
+			ref = ref.toString() if ref?	# be defensive if someone uses numbers in violation of the spec
 			if ref?
 				return found[ref]
 
 			result = {}
 
 			id = encoded['@id']
+			id = id.toString() if id?	# be defensive if someone uses numbers in violation of the spec
 			if id
 				found[id] = result
 

@@ -76,8 +76,8 @@ Track the @id of every object deserialized. When a @ref is encountered, replace 
 
 ## Implementation
 
-JSOG is designed to be easily implemented across platforms. These implementations are typically less than a dozen
-lines of real code.
+JSOG is designed to be easily implemented across platforms. Look at the existing implementations; most are
+a couple dozen lines of code.
 
 ### JavaScript
 
