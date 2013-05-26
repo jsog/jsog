@@ -106,3 +106,7 @@ The authors are:
 
 * Jeff Schnitzer (jeff@infohazard.org)
 * Jon Stevens (latchkey@gmail.com)
+
+## License
+
+This specification and software are provided under the [MIT license](http://opensource.org/licenses/MIT)
