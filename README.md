@@ -15,16 +15,16 @@ For example, picture this data structure:
 
 	[
 		{
-			'name': 'Sally',
-			'secretSanta': {...Bob...}
+			"name": "Sally",
+			"secretSanta": {...Bob...}
 		},
 		{
-			'name': 'Bob',
-			'secretSanta': {...Fred...}
+			"name": "Bob",
+			"secretSanta": {...Fred...}
 		},
 		{
-			'name': 'Fred',
-			'secretSanta': {...Sally...}
+			"name": "Fred",
+			"secretSanta": {...Sally...}
 		}
 	]
 
@@ -46,23 +46,24 @@ This is the JSOG representation of the previous graph:
 
 	[
 		{
-			'@id': '1',
-			'name': 'Sally',
-			'secretSanta': {
-				'@id': '2',
-				'name': 'Bob',
-				'secretSanta': {
-					'@id': '3',
-					'name': 'Fred',
-					'secretSanta': { '@ref': 1 }
+			"@id": "1",
+			"name": "Sally",
+			"secretSanta": {
+				"@id": "2",
+				"name": "Bob",
+				"secretSanta": {
+					"@id": "3",
+					"name": "Fred",
+					"secretSanta": { "@ref": 1 }
 				}
 			}
 		},
-		{ '@ref': '2' },
-		{ '@ref': '3' }
+		{ "@ref": "2" },
+		{ "@ref": "3" }
 	]
 
-Note that @id values must be strings.
+* @id values are arbitrary strings.
+* @id definitions must come before @ref references.
 
 ### Serializing to JSOG
 
@@ -75,6 +76,11 @@ Track the @id of every object deserialized. When a @ref is encountered, replace 
 
 ## Implementation
 
+JSOG is designed to be easily implemented across platforms. These implementations are typically less than a dozen
+lines of real code.
+
+### JavaScript
+
 [The github project which contains this README](https://github.com/stickfigure/jsog) includes a JavaScript
 implementation of JSOG. It can be used to convert between a cyclic object graph and JSOG strings:
 
@@ -83,12 +89,16 @@ implementation of JSOG. It can be used to convert between a cyclic object graph 
 
 Or it can be used to convert between object graphs directly:
 
-	jsogEncoded = JSOG.encode(cyclicGraph);	// has { '@ref': 'ID' } links instead of cycles
-	cyclicGraph = JSOG.decode(jsogEncoded);
+	jsogStructure = JSOG.encode(cyclicGraph);	// has { '@ref': 'ID' } links instead of cycles
+	cyclicGraph = JSOG.decode(jsogStructure);
 
 ### Other Languages
 
 * Java: [a Jackson serializer plugin](https://github.com/stickfigure/jackson-jsog)
+* Python: [a Python implementation](https://github.com/stickfigure/jsog-python)
+* Ruby: [a Ruby implementation](https://github.com/stickfigure/jsog-ruby)
+
+Please contact us about other implementations so they can be linked here.
 
 ## Authors
 

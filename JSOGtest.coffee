@@ -2,6 +2,8 @@
 assert = require('assert')
 JSOG = require('./JSOG')
 
+console.log "### Simple references "
+
 inside = { name: 'thing' }
 
 outside =
@@ -31,3 +33,22 @@ roundtrip = JSOG.parse(JSOG.stringify(outside))
 
 console.log "Roundtrip is:"
 console.log JSON.stringify(roundtrip, undefined, 4)
+
+#
+#
+#
+
+console.log "### Cyclic references "
+
+circular = {}
+circular.me = circular
+
+encoded = JSOG.encode(circular)
+console.log "Encoded: " + JSON.stringify(encoded, undefined, 4)
+assert encoded['@id'] == 1
+assert encoded.me['@ref'] == 1
+
+decoded = JSOG.decode(encoded)
+assert decoded.me == decoded
+
+assert !(circular['@id']?)
