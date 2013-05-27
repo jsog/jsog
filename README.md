@@ -54,7 +54,7 @@ This is the JSOG representation of the aforementioned graph:
 				"secretSanta": {
 					"@id": "3",
 					"name": "Fred",
-					"secretSanta": { "@ref": 1 }
+					"secretSanta": { "@ref": "1" }
 				}
 			}
 		},
