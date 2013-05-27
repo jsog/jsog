@@ -119,3 +119,9 @@ if module && module.exports
 
 if window?
 	window.JSOG = JSOG
+
+if typeof define == 'function' && define.amd
+	define 'JSOG', [], -> JSOG
+
+return JSOG
+
