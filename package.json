@@ -5,5 +5,25 @@
 	"devDependencies": {
 		"coffee-script": "1.6.x",
 		"mocha": "1.9.x"
+	},
+
+	"scripts": {
+		"test": "./node_modules/.bin/mocha"
+	},
+
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/stickfigure/jsog"
 	}
+
+	"bugs": {
+		"url": "https://github.com/stickfigure/jsog/issues"
+	}
+
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://opensource.org/licenses/MIT"
+		}
+	]
 }

@@ -2,7 +2,7 @@
 
 export PATH="$PATH:$PWD/node_modules/.bin:/usr/local/bin"
 
-COMPILE="./lib"
+COMPILE="./test"
 
 if [ ! -d $COMPILE ]; then
 	mkdir -p $COMPILE
@@ -15,10 +15,18 @@ rm -rf $COMPILE/*
 ulimit -n 10000
 
 echo -n "Compiling CoffeeScript for app... "
-time coffee --output $COMPILE --compile ./src
+time coffee --output $COMPILE --compile ./src-test
 
 if [ $? -eq "0" ]; then
 	echo "Done."
 else
 	echo "Error: failed to compile CoffeeScript"
+fi
+
+time mocha
+
+if [ $? -eq "0" ]; then
+	echo "Done."
+else
+	echo "Error: failed to run tests"
 fi
