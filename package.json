@@ -13,11 +13,11 @@
 
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/stickfigure/jsog"
+		"url": "https://github.com/jsog/jsog"
 	},
 
 	"bugs": {
-		"url": "https://github.com/stickfigure/jsog/issues"
+		"url": "https://github.com/jsog/jsog/issues"
 	},
 
 	"licenses": [

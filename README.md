@@ -81,7 +81,7 @@ a couple dozen lines of code.
 
 ### JavaScript
 
-[The github project which contains this README](https://github.com/stickfigure/jsog) includes a JavaScript
+[The github project which contains this README](https://github.com/jsog/jsog) includes a JavaScript
 implementation of JSOG. It can be used to convert between a cyclic object graph and JSOG strings:
 
 	string = JSOG.stringify(cyclicGraph);
@@ -94,9 +94,9 @@ Or it can be used to convert between object graphs directly:
 
 ### Other Languages
 
-* Java: [a Jackson plugin](https://github.com/stickfigure/jackson-jsog)
-* Python: [a Python implementation](https://github.com/stickfigure/jsog-python)
-* Ruby: [a Ruby implementation](https://github.com/stickfigure/jsog-ruby)
+* Java: [a Jackson plugin](https://github.com/jsog/jsog-jackson)
+* Python: [a Python implementation](https://github.com/jsog/jsog-python)
+* Ruby: [a Ruby implementation](https://github.com/jsog/jsog-ruby)
 
 Please contact us about other implementations so they can be linked here.
 
