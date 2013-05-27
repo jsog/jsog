@@ -1,19 +1,20 @@
 assert = require('assert')
 JSOG = require('../lib/JSOG')
 
-inside = { name: 'thing' }
+describe 'leaving original object alone', ->
+	foo = {}
+	JSOG.encode(foo)
 
-outside =
-	inside1: inside
-	inside2: inside
+	it 'should not have added an id', ->
+		assert !(foo['$id']?)
 
-describe 'no id should be set', ->
-	it 'should not have added an id to outside', ->
-		assert !(outside['$id']?)
-	it 'should not have added an id to inside', ->
-		assert !(inside['$id']?)
+describe 'duplicate references', ->
+	inside = { name: 'thing' }
 
-describe 'decoded should work', ->
+	outside =
+		inside1: inside
+		inside2: inside
+
 	encoded = JSOG.encode(outside)
 	decoded = JSOG.decode(encoded)
 
@@ -24,16 +25,16 @@ describe 'decoded should work', ->
 	console.log "Decoded is:"
 	console.log JSON.stringify(decoded, undefined, 4)
 
+	roundtrip = JSOG.parse(JSOG.stringify(outside))
+	console.log "Roundtrip is:"
+	console.log JSON.stringify(roundtrip, undefined, 4)
+
 	it 'inside1 and inside2 should be equal', ->
 		assert decoded.inside1 == decoded.inside2
 	it 'should have inside1.name', ->
 		assert decoded.inside1.name == 'thing'
 	it 'should not have an @id', ->
 		assert !(decoded['@id']?)
-
-roundtrip = JSOG.parse(JSOG.stringify(outside))
-console.log "Roundtrip is:"
-console.log JSON.stringify(roundtrip, undefined, 4)
 
 describe 'cyclic references', ->
 	circular = {}
@@ -51,3 +52,14 @@ describe 'cyclic references', ->
 		assert decoded.me is decoded
 	it 'is not circular', ->
 		assert !(circular['@id']?)
+
+describe 'nulls', ->
+	it 'should leave null by itself alone', ->
+		assert JSOG.encode(null) == null
+
+	it 'should leave null in an object alone', ->
+		foo = { foo: null }
+		encoded = JSOG.encode(foo)
+
+		assert encoded['@id']?
+		assert encoded.foo == null
