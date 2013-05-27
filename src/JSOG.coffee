@@ -82,11 +82,7 @@ JSOG.decode = (encoded) ->
 			return result
 
 		decodeArray = (encoded) ->
-			result = []
-			for value in encoded
-				result.push(JSOG.decode(value))
-
-			return result
+			return (doDecode(value) for value in encoded)
 
 		if Array.isArray(encoded)
 			return decodeArray(encoded)
