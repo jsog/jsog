@@ -84,7 +84,7 @@ JSOG.decode = (encoded) ->
 		decodeArray = (encoded) ->
 			result = []
 			for value in encoded
-				result.push(decode(value))
+				result.push(JSOG.decode(value))
 
 			return result
 
@@ -114,7 +114,7 @@ JSOG.parse = (str) ->
 # Export to anywhere appropriate
 #
 
-if module && module.exports
+if typeof module != 'undefined' && module.exports
 	module.exports = JSOG
 
 if window?
