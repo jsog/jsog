@@ -11,7 +11,7 @@ JSON is widely used as a data interchange format, however, it is limited:
 * Only directed acyclic graphs can be represented.
 * Graphs with repeating information are duplicated on the wire and in memory.
 
-For example, picture this data structure:
+For example:
 
 	[
 		{
@@ -28,7 +28,7 @@ For example, picture this data structure:
 		}
 	]
 
-There cyclic problem is obvious. Your database can represent these relationships just fine and your ORM can pull the object
+This graph has cycles. Your database can represent these relationships just fine and your ORM can pull the object
 graph (with references) into memory, but you cannot directly serialize to a JSON structure without stack
 overflow errors.
 
@@ -42,7 +42,7 @@ JSOG is a standard way to represent object graphs.
 * JSOG is fully self-describing; ids and refs are unambiguous.
 * JSOG is easy to implement in any language or platform.
 
-This is the JSOG representation of the previous graph:
+This is the JSOG representation of the aforementioned graph:
 
 	[
 		{
