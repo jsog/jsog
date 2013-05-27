@@ -110,7 +110,7 @@ JSOG.parse = (str) ->
 # Export to anywhere appropriate
 #
 
-if typeof module != 'undefined' && module.exports
+if module? && module.exports
 	module.exports = JSOG
 
 if window?
