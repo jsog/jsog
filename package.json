@@ -1,6 +1,8 @@
 {
 	"name": "jsog",
-	"version": "1.0.2",
+	"version": "1.0.3",
+
+	"main": "lib/JSOG",
 
 	"devDependencies": {
 		"coffee-script": "1.6.x",
@@ -8,6 +10,8 @@
 	},
 
 	"scripts": {
+		"build": "coffee --compile --lint --output lib/ src/*.coffee",
+		"prepublish": "coffee --compile --lint --output lib/ src/*.coffee",
 		"test": "./node_modules/.bin/mocha"
 	},
 
