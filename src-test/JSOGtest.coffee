@@ -63,3 +63,13 @@ describe 'nulls', ->
 
 		assert encoded['@id']?
 		assert encoded.foo == null
+
+describe 'arrays', ->
+	it 'should encode arrays properly', ->
+		foo = { bar: true }
+		array = [foo, foo]
+
+		encoded = JSOG.encode(array)
+
+		assert encoded[0]['@id']?
+		assert encoded[0]['@id'] == encoded[1]['@ref']

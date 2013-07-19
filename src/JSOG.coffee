@@ -40,7 +40,7 @@ JSOG.encode = (original) ->
 			return result
 
 		encodeArray = (original) ->
-			return (encode val for val in original)
+			return (doEncode val for val in original)
 
 		if not original?
 			return original
