@@ -19,12 +19,18 @@ JSOG.encode = (original) ->
 
 	sofar = {}
 
+	originals = []
+
 	# Get (and if necessary, set) an object id. This ends up being left behind in the original object.
 	idOf = (obj) ->
 		if !obj.__jsogObjectId
 			obj.__jsogObjectId = "#{nextId++}"
+			originals.push obj
 
 		return obj.__jsogObjectId
+
+	cleanup = (original) ->
+		delete original.__jsogObjectId
 
 	doEncode = (original) ->
 		encodeObject = (original) ->
@@ -51,7 +57,9 @@ JSOG.encode = (original) ->
 		else
 			return original
 
-	return doEncode(original)
+	encoded= doEncode(original)
+	originals.forEach cleanup
+	return encoded;
 
 #
 # Take a JSOG-encoded JSON structure and re-link all the references. The return value will
