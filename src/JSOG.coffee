@@ -7,6 +7,9 @@ JSOG = {}
 
 nextId = 1
 
+# Older browser compatibility
+isArray = Array.isArray || (obj) -> toString.call(obj) == '[object Array]'
+
 #
 # Take a JSON structure with cycles and turn it into a JSOG-encoded structure. Adds
 # @id to every object and replaces duplicate references with @refs.
@@ -44,7 +47,7 @@ JSOG.encode = (original) ->
 
 		if not original?
 			return original
-		else if Array.isArray(original)
+		else if isArray(original)
 			return encodeArray(original)
 		else if typeof original == 'object'
 			return encodeObject(original)
@@ -88,7 +91,7 @@ JSOG.decode = (encoded) ->
 
 		if not encoded?
 			return encoded
-		else if Array.isArray(encoded)
+		else if isArray(encoded)
 			return decodeArray(encoded)
 		else if typeof encoded == 'object'
 			return decodeObject(encoded)
