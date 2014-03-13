@@ -5,7 +5,7 @@
 	"main": "lib/JSOG",
 
 	"devDependencies": {
-		"coffee-script": "1.6.x",
+		"coffee-script": "1.7.x",
 		"mocha": "1.9.x"
 	},
 
