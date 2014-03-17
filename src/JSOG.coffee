@@ -8,7 +8,7 @@ JSOG = {}
 nextId = 1
 
 # Older browser compatibility
-isArray = Array.isArray || (obj) -> toString.call(obj) == '[object Array]'
+isArray = Array.isArray || (obj) -> Object.prototype.toString.call(obj) == '[object Array]'
 
 #
 # Take a JSON structure with cycles and turn it into a JSOG-encoded structure. Adds
