@@ -6,7 +6,7 @@
     "jeff@infohazard.org",
     "latchkey@gmail.com"
   ],
-  "description": "original source at https://github.com/jsog/jsog",
+  "description": "JSOG - JavaScript Object Graph",
   "main": "lib/JSOG.js",
   "keywords": [
     "jsog",
