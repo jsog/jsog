@@ -18,8 +18,7 @@
     "toJson",
     "json",
     "parse",
-    "stringify",
-    "object"
+    "stringify"
   ],
   "license": "MIT",
   "ignore": [
