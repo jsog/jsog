@@ -13,16 +13,13 @@
     "javascript",
     "object",
     "graph",
-    "graph",
     "json",
     "fromJson",
     "toJson",
     "json",
     "parse",
-    "json",
     "stringify",
-    "object",
-    "graph"
+    "object"
   ],
   "license": "MIT",
   "ignore": [
