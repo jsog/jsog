@@ -1,6 +1,6 @@
 {
   "name": "jsog",
-  "version": "0.0.1",
+  "version": "1.0.6",
   "homepage": "https://github.com/jsog/jsog",
   "authors": [
     "jeff@infohazard.org",
@@ -29,6 +29,7 @@
     "tests",
     "src-test",
     "bin",
-    ".externalToolBuilder"
+    ".externalToolBuilder",
+    "*.iml"
   ]
 }
