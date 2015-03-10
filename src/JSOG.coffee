@@ -10,11 +10,13 @@ nextId = 1
 # Older browser compatibility
 isArray = Array.isArray || (obj) -> Object.prototype.toString.call(obj) == '[object Array]'
 
+JSOG_OBJECT_ID = '__jsogObjectId'
+
 #
 # Take a JSON structure with cycles and turn it into a JSOG-encoded structure. Adds
 # @id to every object and replaces duplicate references with @refs.
 #
-# Note that this modifies the original objects adding __object_id fields and leaves
+# Note that this modifies the original objects adding __jsogObjectId fields and leaves
 # them there. There does not appear to be another way to define object identity in JS.
 #
 JSOG.encode = (original) ->
@@ -24,10 +26,10 @@ JSOG.encode = (original) ->
 
 	# Get (and if necessary, set) an object id. This ends up being left behind in the original object.
 	idOf = (obj) ->
-		if !obj.__jsogObjectId
-			obj.__jsogObjectId = "#{nextId++}"
+		if !obj[JSOG_OBJECT_ID]
+			obj[JSOG_OBJECT_ID] = "#{nextId++}"
 
-		return obj.__jsogObjectId
+		return obj[JSOG_OBJECT_ID]
 
 	doEncode = (original) ->
 		encodeObject = (original) ->
@@ -37,7 +39,7 @@ JSOG.encode = (original) ->
 
 			result = sofar[id] = { '@id': id }
 			for key, value of original
-				if key != '__jsogObjectId'
+				if key != JSOG_OBJECT_ID
 					result[key] = doEncode(value)
 
 			return result
