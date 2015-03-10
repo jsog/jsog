@@ -1,5 +1,6 @@
 assert = require('assert')
 JSOG = require('../lib/JSOG')
+moment = require('moment')
 
 describe 'leaving original object alone', ->
 	foo = {}
@@ -73,3 +74,9 @@ describe 'arrays', ->
 
 		assert encoded[0]['@id']?
 		assert encoded[0]['@id'] == encoded[1]['@ref']
+
+describe 'custom json serialization', ->
+	it 'should leave objects with toJSON methods alone', ->
+		foo = { foo: moment() }
+		encoded = JSOG.encode(foo)
+		assert encoded.foo == foo.foo

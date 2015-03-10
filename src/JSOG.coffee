@@ -10,6 +10,9 @@ nextId = 0
 # Older browser compatibility
 isArray = Array.isArray || (obj) -> Object.prototype.toString.call(obj) == '[object Array]'
 
+# True if the object has a toJSON method
+hasCustomJsonificaiton = (obj) -> obj.toJSON?
+
 JSOG_OBJECT_ID = '__jsogObjectId'
 
 #
@@ -48,6 +51,8 @@ JSOG.encode = (original) ->
 			return (doEncode(val) for val in original)
 
 		if !original?
+			return original
+		else if hasCustomJsonificaiton(original)
 			return original
 		else if isArray(original)
 			return encodeArray(original)
