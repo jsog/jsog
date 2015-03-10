@@ -47,7 +47,7 @@ JSOG.encode = (original) ->
 		encodeArray = (original) ->
 			return (doEncode val for val in original)
 
-		if not original?
+		if !original?
 			return original
 		else if isArray(original)
 			return encodeArray(original)
@@ -91,7 +91,7 @@ JSOG.decode = (encoded) ->
 		decodeArray = (encoded) ->
 			return (doDecode(value) for value in encoded)
 
-		if not encoded?
+		if !encoded?
 			return encoded
 		else if isArray(encoded)
 			return decodeArray(encoded)
