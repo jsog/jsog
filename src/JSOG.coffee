@@ -5,7 +5,7 @@
 
 JSOG = {}
 
-nextId = 1
+nextId = 0
 
 # Older browser compatibility
 isArray = Array.isArray || (obj) -> Object.prototype.toString.call(obj) == '[object Array]'
