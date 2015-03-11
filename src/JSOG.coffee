@@ -5,16 +5,21 @@
 
 JSOG = {}
 
-nextId = 1
+nextId = 0
 
 # Older browser compatibility
 isArray = Array.isArray || (obj) -> Object.prototype.toString.call(obj) == '[object Array]'
+
+# True if the object has a toJSON method
+hasCustomJsonificaiton = (obj) -> obj.toJSON?
+
+JSOG_OBJECT_ID = '__jsogObjectId'
 
 #
 # Take a JSON structure with cycles and turn it into a JSOG-encoded structure. Adds
 # @id to every object and replaces duplicate references with @refs.
 #
-# Note that this modifies the original objects adding __object_id fields and leaves
+# Note that this modifies the original objects adding __jsogObjectId fields and leaves
 # them there. There does not appear to be another way to define object identity in JS.
 #
 JSOG.encode = (original) ->
@@ -24,10 +29,10 @@ JSOG.encode = (original) ->
 
 	# Get (and if necessary, set) an object id. This ends up being left behind in the original object.
 	idOf = (obj) ->
-		if !obj.__jsogObjectId
-			obj.__jsogObjectId = "#{nextId++}"
+		if !obj[JSOG_OBJECT_ID]
+			obj[JSOG_OBJECT_ID] = "#{nextId++}"
 
-		return obj.__jsogObjectId
+		return obj[JSOG_OBJECT_ID]
 
 	doEncode = (original) ->
 		encodeObject = (original) ->
@@ -37,15 +42,17 @@ JSOG.encode = (original) ->
 
 			result = sofar[id] = { '@id': id }
 			for key, value of original
-				if key != '__jsogObjectId'
+				if key != JSOG_OBJECT_ID
 					result[key] = doEncode(value)
 
 			return result
 
 		encodeArray = (original) ->
-			return (doEncode val for val in original)
+			return (doEncode(val) for val in original)
 
-		if not original?
+		if !original?
+			return original
+		else if hasCustomJsonificaiton(original)
 			return original
 		else if isArray(original)
 			return encodeArray(original)
@@ -89,7 +96,7 @@ JSOG.decode = (encoded) ->
 		decodeArray = (encoded) ->
 			return (doDecode(value) for value in encoded)
 
-		if not encoded?
+		if !encoded?
 			return encoded
 		else if isArray(encoded)
 			return decodeArray(encoded)
