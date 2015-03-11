@@ -1,4 +1,7 @@
 [![Build Status](https://travis-ci.org/jsog/jsog.svg)](https://travis-ci.org/jsog/jsog)
+[![npm version](https://badge.fury.io/js/jsog.svg)](https://badge.fury.io/js/jsog)
+[![npm dependencies](https://david-dm.org/jsog/jsog.svg)](https://david-dm.org/jsog/jsog)
+[![devDependency Status](https://david-dm.org/jsog/jsog/dev-status.svg)](https://david-dm.org/jsog/jsog#info=devDependencies)
 
 # JSOG - JavaScript Object Graph
 
