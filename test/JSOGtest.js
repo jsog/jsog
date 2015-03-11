@@ -97,7 +97,7 @@
     });
   });
 
-  describe('objects with custom json serialization', function() {
+  describe('custom json serialization', function() {
     return it('should leave objects with toJSON methods alone', function() {
       var encoded, foo;
       foo = {
