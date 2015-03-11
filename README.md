@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jsog/jsog.svg)](https://travis-ci.org/jsog/jsog)
+
 # JSOG - JavaScript Object Graph
 
 JSOG (JavaScript Object Graph) is a simple convention which allows arbitrary object graphs
