@@ -2,6 +2,7 @@
 [![npm version](https://badge.fury.io/js/jsog.svg)](https://badge.fury.io/js/jsog)
 [![npm dependencies](https://david-dm.org/jsog/jsog.svg)](https://david-dm.org/jsog/jsog)
 [![devDependency Status](https://david-dm.org/jsog/jsog/dev-status.svg)](https://david-dm.org/jsog/jsog#info=devDependencies)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jsog/jsog?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 # JSOG - JavaScript Object Graph
 
