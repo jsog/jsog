@@ -3,14 +3,14 @@
   "version": "1.0.7",
   "main": "lib/JSOG",
   "devDependencies": {
-    "coffee-script": "^1.9.1",
     "mocha": "*",
-    "moment": "^2.9.0"
+    "moment": "^2.9.0",
+    "uglify-js": "^2.6.1"
   },
   "scripts": {
-    "compile": "coffee --compile --output lib/ src/*.coffee && coffee --compile --output test/ src-test/*.coffee",
-    "build": "npm run-script compile",
-    "prepublish": "npm run-script compile",
+    "copy-src": "cp ./src/JSOG.js ./lib/JSOG.js",
+    "uglify": "./node_modules/.bin/uglifyjs --compress --mangle --output ./lib/JSOG.min.js  --source-map  ./lib/JSOG.min.map -- ./src/JSOG.js",
+    "compile": "npm run-script copy-src && npm run-script uglify",
     "test": "npm run-script compile && ./node_modules/.bin/mocha"
   },
   "repository": {
@@ -20,6 +20,7 @@
   "bugs": {
     "url": "https://github.com/jsog/jsog/issues"
   },
+  "license": "MIT",
   "licenses": [
     {
       "type": "MIT",
