@@ -22,7 +22,7 @@ JSOG_OBJECT_ID = '__jsogObjectId'
 # Note that this modifies the original objects adding __jsogObjectId fields and leaves
 # them there. There does not appear to be another way to define object identity in JS.
 #
-JSOG.encode = (original) ->
+JSOG.encode = (original, idProperty = '@id', refProperty = '@ref') ->
 	#console.log "encoding #{JSON.stringify(original)}"
 
 	sofar = {}
@@ -38,9 +38,9 @@ JSOG.encode = (original) ->
 		encodeObject = (original) ->
 			id = idOf(original)
 			if sofar[id]
-				return { '@ref': id }
+				return { "#{refProperty}": id}
 
-			result = sofar[id] = { '@id': id }
+			result = sofar[id] = { "#{idProperty}": id }
 			for key, value of original
 				if key != JSOG_OBJECT_ID
 					result[key] = doEncode(value)
@@ -67,7 +67,7 @@ JSOG.encode = (original) ->
 # Take a JSOG-encoded JSON structure and re-link all the references. The return value will
 # not have any @id or @ref fields
 #
-JSOG.decode = (encoded) ->
+JSOG.decode = (encoded, idProperty = '@id', refProperty = '@ref') ->
 	# Holds every @id found so far.
 	found = {}
 
@@ -75,20 +75,20 @@ JSOG.decode = (encoded) ->
 		#console.log "decoding #{JSON.stringify(encoded)}"
 
 		decodeObject = (encoded) ->
-			ref = encoded['@ref']
+			ref = encoded[refProperty]
 			ref = ref.toString() if ref?	# be defensive if someone uses numbers in violation of the spec
 			if ref?
 				return found[ref]
 
 			result = {}
 
-			id = encoded['@id']
+			id = encoded[idProperty]
 			id = id.toString() if id?	# be defensive if someone uses numbers in violation of the spec
 			if id
 				found[id] = result
 
 			for key, value of encoded
-				if key != '@id'
+				if key != idProperty
 					result[key] = doDecode(value)
 
 			return result
