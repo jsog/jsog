@@ -98,12 +98,6 @@ Or it can be used to convert between object graphs directly:
 	jsogStructure = JSOG.encode(cyclicGraph);	// has { '@ref': 'ID' } links instead of cycles
 	cyclicGraph = JSOG.decode(jsogStructure);
 
-Custom identity property names can be used by specifying them both during encoding and decoding:
-
-	jsogStructure = JSOG.encode(cyclicGraph, '@identity', '@reference');    // will encode using custom property names (@identity instead of @id and  @reference instead of @ref)
-	cyclicGraph = JSOG.decode(jsogStructure '@identity', '@reference');     // will decode using custom property names (@identity instead of @id and  @reference instead of @ref)
-
-
 ### Other Languages
 
 * Java: [a Jackson plugin](https://github.com/jsog/jsog-jackson)
