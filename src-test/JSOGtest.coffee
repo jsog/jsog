@@ -80,3 +80,27 @@ describe 'custom json serialization', ->
 		foo = { foo: moment() }
 		encoded = JSOG.encode(foo)
 		assert encoded.foo == foo.foo
+
+describe 'custom references', ->
+	duplicate = { lorem: 'ipsum' }
+
+	outside =
+		one: duplicate
+		two: duplicate
+
+	encoded = JSOG.encode(outside, '@MyId', '@MyRef')
+	decoded = JSOG.decode(encoded, '@MyId', '@MyRef')
+
+	console.log "Encoded is:"
+	console.log JSON.stringify(encoded, undefined, 4)
+
+	console.log "Decoded is:"
+	console.log JSON.stringify(decoded, undefined, 4)
+
+	it 'should be encoded properly when using custom references', ->
+		assert encoded['@MyId']?
+		assert !(encoded['@Id'])?
+
+	it 'should be decoded properly when using custom references', ->
+		assert !(decoded['@MyId'])?
+		assert !(decoded['@Id'])?
