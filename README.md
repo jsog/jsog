@@ -6,6 +6,8 @@
 
 # JSOG - JavaScript Object Graph
 
+[![Join the chat at https://gitter.im/jsog/jsog](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jsog/jsog?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 JSOG (JavaScript Object Graph) is a simple convention which allows arbitrary object graphs
 to be represented in JSON. It allows a large, complicated, cyclic object graph to be serialized
 and deserialized to and from JSON.
