@@ -103,6 +103,7 @@ Or it can be used to convert between object graphs directly:
 * Java: [a Jackson plugin](https://github.com/jsog/jsog-jackson)
 * Python: [a Python implementation](https://github.com/jsog/jsog-python)
 * Ruby: [a Ruby implementation](https://github.com/jsog/jsog-ruby)
+* Typescript: [a third party Typescript implementation](https://github.com/e-mundo/jsog-typescript)
 
 Please contact us about other implementations so they can be linked here.
 
