@@ -1,6 +1,6 @@
 {
   "name": "jsog",
-  "version": "1.1.2-stringify",
+  "version": "1.1.2-stringify-params",
   "main": "lib/JSOG",
   "devDependencies": {
     "coffee-script": "^1.10.0",
