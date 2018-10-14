@@ -76,14 +76,14 @@ JSOG.decode = (encoded, idProperty = '@id', refProperty = '@ref') ->
 
 		decodeObject = (encoded) ->
 			ref = encoded[refProperty]
-			ref = ref.toString() if ref?	# be defensive if someone uses numbers in violation of the spec
+			ref = ref.toString() if ref? # be defensive if someone uses numbers in violation of the spec
 			if ref?
 				return found[ref]
 
 			result = {}
 
 			id = encoded[idProperty]
-			id = id.toString() if id?	# be defensive if someone uses numbers in violation of the spec
+			id = id.toString() if id? # be defensive if someone uses numbers in violation of the spec
 			if id
 				found[id] = result
 
