@@ -70,6 +70,7 @@ JSOG.encode = (original, idProperty = '@id', refProperty = '@ref') ->
 JSOG.decode = (encoded, idProperty = '@id', refProperty = '@ref') ->
 	# Holds every @id found so far.
 	found = {}
+	doLater = undefined
 
 	doDecode = (encoded) ->
 		#console.log "decoding #{JSON.stringify(encoded)}"
@@ -77,19 +78,28 @@ JSOG.decode = (encoded, idProperty = '@id', refProperty = '@ref') ->
 		decodeObject = (encoded) ->
 			ref = encoded[refProperty]
 			ref = ref.toString() if ref? # be defensive if someone uses numbers in violation of the spec
-			if ref?
-				return found[ref]
-
 			result = {}
+			populate = (key, value) ->
+				result[key] = doDecode(value)
+			if ref?
+				return found[ref] || (found[ref]=result)
+
 
 			id = encoded[idProperty]
 			id = id.toString() if id? # be defensive if someone uses numbers in violation of the spec
 			if id
-				found[id] = result
+				found[id] = result = found[id] || result
 
 			for key, value of encoded
 				if key != idProperty
-					result[key] = doDecode(value)
+					if doLater
+						doLater.push(populate.bind(null, key, value))
+					else
+						doLater = []
+						populate key, value
+						while doLater.length
+							doLater.shift()()
+						doLater = undefined
 
 			return result
 
